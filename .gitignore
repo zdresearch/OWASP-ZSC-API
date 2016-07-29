@@ -1,0 +1,15 @@
+# Compiled python files
+
+*.pyc
+
+#gdb history
+.gdb_history
+
+#pyCharm settings
+.idea/*
+
+#peda
+peda-session*
+
+#tmp files
+*.py~
