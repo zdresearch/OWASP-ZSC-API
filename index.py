@@ -6,35 +6,32 @@ ZeroDay Cyber Research
 Z3r0D4y.Com
 Ali Razmjoo
 '''
-import cgi,os,sys,string
+import cgi
 import cgitb; cgitb.enable()
+from core.commands import _show_payloads
 import sys
 import os
-from core.update import _update
-from lib.shell_storm_api.grab import _search_shellcode
-from lib.shell_storm_api.grab import _download_shellcode
-from lib.shell_storm_api.grab import _grab_all
 from core.obfuscate import obf_code
 from core.encode import encode_process
 from core.opcoder import op
-from core.file_out import file_output
-exec (compile(
-    open(
-        str(os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')) +
-        '/core/commands.py', "rb").read(), str(os.path.dirname(os.path.abspath(
-            __file__)).replace('\\', '/')) + '/core/commands.py', 'exec'))
-exec (compile(
+
+exec(compile(
+	open(
+		str(os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')) +
+		'/core/commands.py', "rb").read(), str(os.path.dirname(os.path.abspath(
+			__file__)).replace('\\', '/')) + '/core/commands.py', 'exec'))
+exec(compile(
 	open(
 		str(os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')) +
 		'/core/start.py', "rb").read(), str(os.path.dirname(os.path.abspath(
 			__file__)).replace('\\', '/')) + '/core/start.py', 'exec'))
-print 'Content-type: text/html\nAPI-SERVER: ZERODAY CYBER RESEARCH\nAdmin: Ali@Z3r0d4y.Com\n'
+print ('Content-type: text/html\nAPI-SERVER: ZERODAY CYBER RESEARCH\nAdmin: Ali@Z3r0d4y.Com\n')
 form = cgi.FieldStorage()
 api = form.getvalue("api_name")
-if api == None:
-        print '''Hello, Please Visit <a href="https://github.com/zscproject/OWASP-ZSC/wiki">WIKI</a> to know about this API server.<br>
+if api is None:
+		print('''Hello, Please Visit <a href="https://github.com/zscproject/OWASP-ZSC/wiki">WIKI</a> to know about this API server.<br>
 Please report problems to Admin, Thank you.<br>
-<a href="mailto:ali[dot]razmjoo[at]owasp[dot]org">Ali Razmjoo</a>'''
+<a href="mailto:ali[dot]razmjoo[at]owasp[dot]org">Ali Razmjoo</a>''')
 
 elif api == 'zsc':
 	mypayload = form.getvalue("payload")
@@ -43,7 +40,7 @@ elif api == 'zsc':
 	if mypayload != None and myinput != None:
 		payloads = _show_payloads(commands,True)
 		if len(payloads) is 0:
-			print 'no payload found!'
+			print ('no payload found!')
 			sys.exit(0)
 			
 		if len(mypayload.rsplit('/')) is 2:	
@@ -90,14 +87,14 @@ elif api == 'zsc':
 		if limit is not None:
 			for _ in _show_payloads(commands,True):
 				if limit in _:
-					print '[+]',_
+					print ('[+]'),_
 		if limit is None:
 			_show_payloads(commands,False)
 		sys.exit(0)
 	else:
-		print '''please be sure you send all required fields!'''
+		print( '''please be sure you send all required fields!''')
 		sys.exit(0)
 else:
-	print '''api not found!'''
+	print ('''api not found!''')
 	sys.exit(0)
 
